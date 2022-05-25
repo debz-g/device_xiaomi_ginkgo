@@ -42,20 +42,37 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_p.mk)
 # Inherit from ginkgo device
 $(call inherit-product, device/xiaomi/ginkgo/device.mk)
 
-# Inherit PixelExperience stuff
+# Inherit some common Elixir stuff.
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
 # PixelExperience specifics
 TARGET_GAPPS_ARCH := arm64
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_INCLUDE_LIVE_WALLPAPERS := false
-TARGET_USES_AOSP_RECOVERY := true
+# TARGET_USES_AOSP_RECOVERY := true
 TARGET_SUPPORTS_QUICK_TAP := true
 
+#Feature-Flags
+IS_PHONE := true
+TARGET_SUPPORTS_GOOGLE_RECORDER := true
+TARGET_INCLUDE_STOCK_ACORE := true
+TARGET_FACE_UNLOCK_SUPPORTED := true
+
+# NGA
+TARGET_SUPPORTS_NEXT_GEN_ASSISTANT := true
+
 # Device identifiers
-PRODUCT_NAME := aosp_ginkgo
+PRODUCT_NAME := elixir_ginkgo
 PRODUCT_DEVICE := ginkgo
 PRODUCT_BRAND := Xiaomi
 PRODUCT_MODEL := Redmi Note 8
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+
+# Add-ons
+# Device Settings
+$(call inherit-product-if-exists, vendor/xiaomi/devicesettings/config.mk)
+# Google Camera 
+$(call inherit-product-if-exists, vendor/Gcam/config.mk)
+# Pixel Launcher
+$(call inherit-product-if-exists, vendor/pixel/launcher/config.mk)
